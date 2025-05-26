@@ -48,6 +48,8 @@ def index():
 
         if pipette == "P-10":
             volume_ul = round(random.uniform(0.0,10.0),1)
+            volume_as_int = int(volume_ul * 10)
+            
             d1 = volume_as_int // 10
             d2 = (volume_as_int % 10)
             d3 = 0
