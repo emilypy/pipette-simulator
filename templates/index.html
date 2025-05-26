@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pipette Simulator</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+        .digit {
+            font-size: 50px;
+            display: block;
+        }
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>Pipette: {{ pipette }}</h2>
+
+    <!-- Dial display -->
+    <div>
+        {% for i in range(3) %}
+            <span class="digit
+                {% if pipette in ['P-10', 'P-20'] and i == 2 %}
+                    red
+                {% elif pipette == 'P-1000' and digits[0]*100 + digits[1]*10 + digits[2] == 1000 and i == 0 %}
+                    red
+                {% elif pipette == 'P-1000' and digits[2] == 0 and digits[0]*100 + digits[1]*10 + digits[2] != 1000 and i == 2 %}
+                    red
+                {% endif %}
+            ">{{ digits[i] }}</span>
+        {% endfor %}
+    </div>
+
+    <!-- Form -->
+    <form id="volume-form" method="POST">
+        <input type="hidden" name="pipette" value="{{ pipette }}">
+        <input type="hidden" name="d1" value="{{ digits[0] }}">
+        <input type="hidden" name="d2" value="{{ digits[1] }}">
+        <input type="hidden" name="d3" value="{{ digits[2] }}">
+        <input type="hidden" id="form-action" name="action" value="check">
+
+        <label>Enter volume (mL):</label><br>
+        <input type="text" name="volume" required autofocus>
+
+        <div style="margin-top: 10px;">
+            <button type="submit" onclick="setAction('check')">Check</button>
+            {% if result %}
+                <button type="submit" onclick="setAction('next')">Next</button>
+            {% endif %}
+        </div>
+    </form>
+
+    <!-- Result display -->
+    <h3>{{ result }}</h3>
+
+    <!-- JS logic -->
+    <script>
+        let checkedOnce = false;
+    </script>
+
+    {% if result %}
+    <script>
+        checkedOnce = true;
+    </script>
+    {% endif %}
+
+    <script>
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                const form = document.getElementById("volume-form");
+                const actionField = document.getElementById("form-action");
+
+                if (!checkedOnce) {
+                    actionField.value = "check";
+                    checkedOnce = true;
+                } else {
+                    actionField.value = "next";
+                    checkedOnce = false;
+                }
+
+                form.submit();
+            }
+        });
+
+        function setAction(action) {
+            document.getElementById("form-action").value = action;
+        }
+    </script>
+</body>
+</html>
