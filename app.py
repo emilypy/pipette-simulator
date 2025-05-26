@@ -24,8 +24,10 @@ def index():
                 volume_ul = (d1 * 10 + d2) / 10  # e.g. 15 → 1.5 µL
             elif pipette == "P-20":
                 volume_ul = d1 * 10 + d2 + d3 / 10
-            else:
-                volume_ul = d1 * 100 + d2 * 10 + d3  # P-200 and P-1000
+            elif pipette == "P-200":
+                volume_ul = d1 * 100 + d2 * 10 + d3
+            elif pipette == "P-1000":
+                volume_ul = d1 * 1000 + d2 * 100 + d3 * 10
 
             correct_volume = volume_ul
 
@@ -49,7 +51,6 @@ def index():
         if pipette == "P-10":
             volume_ul = round(random.uniform(0.0,10.0),1)
             volume_as_int = int(volume_ul * 10)
-            
             d1 = volume_as_int // 10
             d2 = (volume_as_int % 10)
             d3 = 0
