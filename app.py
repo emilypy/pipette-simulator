@@ -31,10 +31,10 @@ def index():
 
             try:
                 user_volume = float(user_input)
-                if abs(user_volume - correct_volume) < 0.01:
-                    result = "✅ Correct!"
+                if abs(user_volume - correct_volume) == round(correct_volume, 1):
+                    result = "Correct!"
                 else:
-                    result = f"❌ Incorrect. Correct: {correct_volume:.1f} µL"
+                    result = f"Incorrect. Correct: {correct_volume:.1f} µL"
             except:
                 result = "⚠️ Invalid input."
 
@@ -51,17 +51,19 @@ def index():
             d1 = value // 10
             d2 = value % 10
             d3 = 0
+            correct_volume = (d1 *10 +d2) / 10
         elif pipette == "P-20":
-            value = random.randint(0, 200)
-            d1 = value // 10
-            d2 = value % 10
+            d1 = random.randint(0, 9)
+            d2 = random.randint(0, 9)
             d3 = random.randint(0, 9)
+            correct_volume = d1 * 10 + d2 + d3 / 10
         else:
-            max_val = 1000 if pipette == "P-1000" else 200
+            max_val = 200 if pipette == "P-200" else 1000
             value = random.randint(0, max_val)
             d1 = value // 100
             d2 = (value % 100) // 10
             d3 = value % 10
+            correct_volume = value
 
         digits = [d1, d2, d3]
 
