@@ -47,16 +47,20 @@ def index():
         pipette = random.choice(["P-1000", "P-200", "P-20", "P-10"])
 
         if pipette == "P-10":
-            value = random.randint(0, 100)  # 0.0–10.0 µL as 0–100
-            d1 = value // 10
-            d2 = value % 10
+            volume_ul = round(round.uniform(0.0,10.0),1)
+            d1 = volume_as_int // 10
+            d2 = (volume_as_int % 10)
             d3 = 0
             correct_volume = (d1 *10 +d2) / 10
         elif pipette == "P-20":
-            d1 = random.randint(0, 9)
-            d2 = random.randint(0, 9)
-            d3 = random.randint(0, 9)
-            correct_volume = d1 * 10 + d2 + d3 / 10
+            volume_ul = round(random.uniform(0.0, 20.0),1)
+            volume_as_int = int(volume_ul * 10)
+
+            d1 = volume_as_int // 100
+            d2 = (volume_as_int % 100) // 10
+            d3 = volume_as_int % 10
+
+            correct_volume = volume_ul
         else:
             max_val = 200 if pipette == "P-200" else 1000
             value = random.randint(0, max_val)
