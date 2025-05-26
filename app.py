@@ -31,7 +31,7 @@ def index():
 
             try:
                 user_volume = float(user_input)
-                if abs(user_volume - correct_volume) == round(correct_volume, 1):
+                if round(user_volume, 2) == round(correct_volume, 2):
                     result = "Correct!"
                 else:
                     result = f"Incorrect. Correct: {correct_volume:.1f} µL"
