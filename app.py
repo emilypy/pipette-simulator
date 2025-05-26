@@ -64,14 +64,19 @@ def index():
             d3 = volume_as_int % 10
 
             correct_volume = volume_ul
-        else:
-            max_val = 200 if pipette == "P-200" else 1000
-            value = random.randint(0, max_val)
+        elif pipette == "P-200":
+            value = random.randint(0, 200)
             d1 = value // 100
             d2 = (value % 100) // 10
             d3 = value % 10
             correct_volume = value
-
+        elif pipette == "P-1000":
+            value = random.randint(0, 1000)
+            d1 = value // 1000
+            d2 = (value % 1000) // 100
+            d3 = (value % 100) // 10
+            correct_volume = d1 * 1000 + d2 * 100 + d3 * 10
+            
         digits = [d1, d2, d3]
 
     return render_template("index.html", pipette=pipette, digits=digits, result=result)
