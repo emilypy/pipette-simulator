@@ -23,14 +23,14 @@ def index():
             else:
                 volume_ul = d1 * 100 + d2 * 10 + d3
 
-            correct_volume = volume_ul / 1000
+            correct_volume = volume_ul 
 
             try:
                 user_volume = float(user_input)
                 if abs(user_volume - correct_volume) < 0.0001:
                     result = "✅ Correct!"
                 else:
-                    result = f"❌ Incorrect. Correct: {correct_volume:.4f} mL"
+                    result = f"❌ Incorrect. Correct: {correct_volume:.4f} µL"
             except:
                 result = "⚠️ Invalid input."
 
